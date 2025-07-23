@@ -22,7 +22,7 @@ async def endpoint_csv_to_json(file: UploadFile = File(...)):
     if converted is None:
         raise HTTPException(
             status_code=HTTPStatus.BAD_REQUEST,
-            detail='Não foi possivel processar arquivo, verifique o formato',
+            detail='Não foi possivel processar arquivo',
         )
 
     return Response(content=converted, media_type='application/json')

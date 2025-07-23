@@ -6,7 +6,7 @@ import pandas as pd
 def convert_csv_to_json(file: bytes) -> str | None:
     try:
         buffer = io.BytesIO(file)
-        dataframe = pd.read_csv(buffer)
+        dataframe = pd.read_csv(buffer, on_bad_lines='error')
         return dataframe.to_json(orient='records', indent=4)
 
     except Exception as erro:
