@@ -1,113 +1,129 @@
-🐲 DataMorph API
+# 🐲 DataMorph API  
 Seu tradutor de arquivos juramentado, direto da Amazônia para o mundo!
 
-🎯 Sobre o Projeto
-DataMorph é uma API parruda e veloz construída com FastAPI para a conversão bidirecional de arquivos entre os formatos CSV e JSON. Cansado de abrir planilhas e salvar como, ou de procurar conversores online duvidosos? Seus problemas acabaram!
+---
 
-Este projeto utiliza o poder do Pandas por baixo dos panos para garantir uma conversão de dados robusta e eficiente, lidando até mesmo com arquivos mal formados de forma inteligente.
+## 🎯 Sobre o Projeto
 
-✨ Funcionalidades
-✅ Conversão de arquivos CSV para JSON.
+**DataMorph** é uma API parruda e veloz construída com **FastAPI** para a conversão *bidirecional* de arquivos entre os formatos **CSV** e **JSON**.
 
-✅ Conversão de arquivos JSON para CSV.
+Cansado de abrir planilhas e salvar como? Ou de procurar conversores online duvidosos? Seus problemas acabaram! 💾🧙‍♂️
 
-✅ Validação de formato de arquivo na entrada (só aceita o que promete!).
+Este projeto utiliza o poder do **Pandas** por baixo dos panos para garantir uma conversão de dados robusta e eficiente, lidando até mesmo com arquivos malformados de forma inteligente.
 
-✅ Validação de conteúdo mal formado, rejeitando arquivos "quebrados".
+---
 
-✅ Documentação interativa e automática com Swagger UI (/docs).
+## ✨ Funcionalidades
 
-✅ Respostas de erro claras e padronizadas.
+- ✅ Conversão de arquivos **CSV → JSON**
+- ✅ Conversão de arquivos **JSON → CSV**
+- ✅ Validação de **formato de arquivo** (aceita só o que promete!)
+- ✅ Validação de **conteúdo malformado**, rejeitando arquivos "quebrados"
+- ✅ Documentação interativa com **Swagger UI** em `/docs`
+- ✅ Respostas de erro claras e padronizadas
 
-🛠️ Tecnologias Utilizadas
-Esta API foi construída com as melhores ferramentas do ecossistema Python:
+---
 
-🐍 Python 3.13
+## 🛠️ Tecnologias Utilizadas
 
-✨ FastAPI: Para a construção da API assíncrona.
+Este projeto foi construído com o melhor que o ecossistema Python tem a oferecer:
 
-🐼 Pandas: O motor por trás da manipulação e conversão dos dados.
+- 🐍 **Python 3.13**
+- ⚡ **FastAPI** – construção da API assíncrona
+- 🐼 **Pandas** – motor da manipulação e conversão dos dados
+- 🚀 **Uvicorn** – servidor ASGI para colocar tudo no ar
+- 📦 **Poetry** – gerenciamento de dependências e ambientes
+- 🧪 **Pytest** – testes automatizados para manter tudo nos eixos
 
-🚀 Uvicorn: O servidor ASGI que coloca nossa API no ar.
+---
 
-📦 Poetry: Para gerenciamento de dependências e do ambiente virtual.
+## 🚀 Como Rodar o Projeto
 
-🧪 Pytest: Para garantir que tudo funcione como esperado através de testes automatizados.
+### ✅ Pré-requisitos
 
-🚀 Como Rodar o Projeto
-Para ter o DataMorph rodando na sua máquina local, siga estes simples passos.
+- Python 3.13+
+- [Poetry](https://python-poetry.org/) instalado
 
-Pré-requisitos
-Ter o Python 3.13+ instalado.
+### 📥 Instalação
 
-Ter o Poetry instalado.
-
-Instalação
 Clone o repositório:
 
-Bash
-
+```bash
 git clone https://github.com/briellll/datamorph.git
-Navegue até a pasta do projeto:
-
-Bash
-
 cd datamorph
-Instale as dependências com o Poetry:
-(O Poetry criará um ambiente virtual automaticamente)
+```
 
-Bash
+Instale as dependências:
 
+```bash
 poetry install
+```
+
 Inicie o servidor da API:
 
-Bash
-
+```bash
 poetry run uvicorn datamorph.main:app --reload
-O --reload faz com que o servidor reinicie automaticamente a cada alteração no código. Mão na roda!
+```
 
-Pronto! Sua API já está no ar. Abra seu navegador e acesse:
+> O `--reload` reinicia o servidor automaticamente a cada alteração no código. Mão na roda!
 
-Documentação Interativa (Swagger): http://127.0.0.1:8000/docs
+### 🌐 Acesse:
 
-Documentação Alternativa (ReDoc): http://127.0.0.1:8000/redoc
+- Swagger: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+- ReDoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
 
-🕹️ Como Usar a API
-A maneira mais fácil de testar é usando a documentação interativa (/docs), onde você pode fazer o upload dos arquivos diretamente pelo navegador.
+---
 
-Para os mais "hackers", aqui estão exemplos usando curl no terminal.
+## 🕹️ Como Usar a API
 
-Convertendo CSV para JSON
-Bash
+A forma mais prática é via `/docs`, onde é possível fazer upload de arquivos diretamente pelo navegador.
 
-# O '-F' indica um campo de formulário multipart.
-# "file=@caminho/para/seu/arquivo.csv" anexa o seu arquivo.
+Para os mais "hackers", temos o bom e velho `curl`:
+
+### 📤 Convertendo CSV para JSON
+
+```bash
 curl -X POST -F "file=@caminho/para/seu/arquivo.csv" http://127.0.0.1:8000/csv-para-json
-Convertendo JSON para CSV
-Bash
+```
 
-# O '-o' salva a saída diretamente em um novo arquivo.
+### 📥 Convertendo JSON para CSV
+
+```bash
 curl -X POST -F "file=@caminho/para/seu/lendas.json" http://127.0.0.1:8000/json-para-csv -o convertido.csv
-🧪 Como Rodar os Testes
-Para garantir a integridade e o bom funcionamento da API, execute a suíte de testes com pytest:
+```
 
-Bash
+---
 
+## 🧪 Rodando os Testes
+
+Para garantir que tudo funcione como deveria:
+
+```bash
 poetry run pytest
-Ou, se você configurou o task, use:
+```
 
-Bash
+Ou, se tiver `task` configurado:
 
+```bash
 task test
-📂 Estrutura de Pastas
-O projeto segue uma estrutura moderna com a pasta src para separar o código-fonte dos arquivos de configuração e testes:
+```
 
+---
+
+## 📂 Estrutura de Pastas
+
+```
+datamorph/
 ├── src/
-│   └── datamorph/      <-- O pacote principal da nossa aplicação
+│   └── datamorph/        # O pacote principal da aplicação
 │       ├── __init__.py
-│       ├── core.py     <-- A "cozinha": toda a lógica de conversão
-│       └── main.py     <-- O "salão": os endpoints da API com FastAPI
-├── tests/              <-- A "academia": todos os testes automatizados
+│       ├── core.py       # A "cozinha": lógica de conversão
+│       └── main.py       # O "salão": endpoints da API
+├── tests/                # A "academia": testes automatizados
 │   └── test_main.py
-└── pyproject.toml      <-- O "RG" do projeto, com todas as dependências
-Feito com muito café, açaí e uma pitada de desespero de madrugada em Santarém-PA, Brasil. 🇧🇷
+└── pyproject.toml        # O "RG" do projeto
+```
+
+---
+
+> Feito com muito ☕, 🍧 açaí e uma pitada de desespero de madrugada em **Santarém - PA, Brasil** 🇧🇷
