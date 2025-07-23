@@ -1,5 +1,3 @@
-(Comece a copiar daqui)
-
 🐲 DataMorph API
 Seu tradutor de arquivos juramentado, direto da Amazônia para o mundo!
 
@@ -49,7 +47,7 @@ Clone o repositório:
 
 Bash
 
-git clone https://github.com/seu-usuario/datamorph.git
+git clone https://github.com/briellll/datamorph.git
 Navegue até a pasta do projeto:
 
 Bash
@@ -113,5 +111,3 @@ O projeto segue uma estrutura moderna com a pasta src para separar o código-fon
 │   └── test_main.py
 └── pyproject.toml      <-- O "RG" do projeto, com todas as dependências
 Feito com muito café, açaí e uma pitada de desespero de madrugada em Santarém-PA, Brasil. 🇧🇷
-
-(Fim da cópia)
