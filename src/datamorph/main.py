@@ -43,7 +43,7 @@ async def endpoint_json_to_csv(file: UploadFile = File(...)):
     if converted is None:
         raise HTTPException(
             status_code=HTTPStatus.BAD_REQUEST,
-            detail='Não foi possivel processar arquivo, verifique o formato',
+            detail='Não foi possivel processar arquivo',
         )
 
     nome_arquivo_saida = f'convertido_{file.filename.split(".")[0]}.csv'  # type: ignore

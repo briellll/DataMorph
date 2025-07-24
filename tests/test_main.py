@@ -36,7 +36,7 @@ def test_csv_to_json_extension_invalidates():
 
     response = client.post(
         '/csv-para-json',
-        files={'file': ('content_fake.txt', fake_buffer, 'tex/plain')},
+        files={'file': ('content_fake.txt', fake_buffer, 'text/plain')},
     )
 
     error_detail = 'Arquivo inválido. Por favor envie um arquivo .csv'
@@ -59,3 +59,55 @@ def test_csv_to_json_content_invalidate():
     error_detail = 'Não foi possivel processar arquivo'
     assert response.status_code == HTTPStatus.BAD_REQUEST
     assert error_detail in response.json()['detail']
+
+
+def test_json_to_csv_ok():
+    json_content_string = (
+        '[{"nome":"gabriel","cidade":"santarem"},'
+        '{"nome":"tico","cidade":"santarem"}]'
+    )
+
+    json_content_byte = json_content_string.encode('utf-8')
+    json_buffer = io.BytesIO(json_content_byte)
+
+    response = client.post(
+        '/json-para-csv',
+        files={'file': ('pessoas.json', json_buffer, 'application/json')},
+    )
+
+    assert response.status_code == HTTPStatus.OK
+    assert 'text/csv' in response.headers['content-type']
+    assert 'attachment' in response.headers['content-disposition']
+    assert 'convertido_pessoas.csv' in response.headers['content-disposition']
+
+    expected_csv_content = 'nome,cidade\ngabriel,santarem\ntico,santarem\n'
+
+    assert response.text == expected_csv_content
+
+
+def test_json_to_csv_type_invalidate():
+    fake_file_buffer = io.BytesIO(b'texto qualquer')
+
+    response = client.post(
+        '/json-para-csv',
+        files={'file': ('text.txt', fake_file_buffer, 'text/plain')},
+    )
+
+    msg_error = 'Arquivo invalido. Por favor envie um arquivo .json'
+    assert response.status_code == HTTPStatus.BAD_REQUEST
+    assert msg_error in response.json()['detail']
+
+
+def test_json_to_csv_invalidate():
+    fake_json_broken = b'[{"lenda": "Boto"} {"lenda": "Iara"}]'
+
+    fake_csv_broken = io.BytesIO(fake_json_broken)
+
+    response = client.post(
+        '/json-para-csv',
+        files={'file': ('fake.json', fake_csv_broken, 'application/json')},
+    )
+
+    msg_error = 'Não foi possivel processar arquivo'
+    assert response.status_code == HTTPStatus.BAD_REQUEST
+    assert msg_error in response.json()['detail']

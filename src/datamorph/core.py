@@ -24,7 +24,7 @@ def convert_json_to_csv(file: bytes) -> str | None:
     try:
         buffer = io.BytesIO(file)
         dataframe = pd.read_json(buffer)
-        return dataframe.to_csv(index=False)
+        return dataframe.to_csv(index=False, lineterminator='\n')
     except Exception as erro:
         print(f'Erro ao processar json: {erro}')
         return None
